@@ -60,7 +60,7 @@ Run the .exe file and a Tkinter GUI will appear with the following:
 ## Where Users Can Get Help
 Because this project was built for a specific muncipal office with private datasets, outside users will need to adapt the file formats for their environment.
 For help:
-* Open an issue in this GitHUb repository
+* Open an issue in this GitHub repository
 * Contact the maintainer listed below
 
 ## Who Maintains This Project
@@ -71,4 +71,5 @@ Contributions are welcome, but users must note:
 * Confidential workbooks are excluded from this repository
 
   
+
 
