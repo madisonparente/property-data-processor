@@ -9,10 +9,10 @@ All functionality is accessible through a Tkinter GUI with buttons.
 * Reads MLS OneKey export files containing property sales from a specific timeframe.
 * Converts parcel numbers into print_key identifiers used in RPS.
 * Searches additional Excel files (reports generated via RPS) to pull:
-  * Sales Price
+  * 5217 Sales Price (Value listed on the deed)
   * 5217 Assessed Value (Value listed on the deed)
-  * Current Assessed Value 
-  * Condition Code
+  * Current Assessed Value (Value from the town's database)
+  * Condition Code (Letter code listed on the deed)
 * Writes all retrieved data into new structured columns added to the sales file.
 * Appends processed data into a hard-coded workbook (**annualsales.xlsx not included in repository due to confidential information**).
 * Generates two annual summary sheets:
@@ -71,5 +71,6 @@ Contributions are welcome, but users must note:
 * Confidential workbooks are excluded from this repository
 
   
+
 
 
