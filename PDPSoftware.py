@@ -184,7 +184,7 @@ def append_rows():
         temp_root.destroy()
         messagebox.showerror("Error", f"Unable to open source file.\n\n{e}")
         return
-    dest_file = "annualsales.xlsx"
+    dest_file = "Annual Sales.xlsx"
     try:
         wb_dest = openpyxl.load_workbook(dest_file)
     except Exception as e:
@@ -225,9 +225,9 @@ def add_new_sheets():
     if not sheet2_name:
         return
     try:
-        wb = load_workbook("annualsales.xlsx")
+        wb = load_workbook("Annual Sales.xlsx")
     except FileNotFoundError:
-        messagebox.showerror("Error", "annualsales.xlsx not found in this folder.")
+        messagebox.showerror("Error", "Annual Sales.xlsx not found in this folder.")
         return
     # Create Sheets
     ws1 = wb.create_sheet(title=sheet1_name)
@@ -306,19 +306,19 @@ def add_new_sheets():
         ws2[f"AA{row}"] = f"=IF(Z{row}=\"\",\"\",ABS(Z{row}-$AB$2))"
     ws2["AB2"] = "=MEDIAN(Z:Z)"
     ws2["AC2"] = "=SUMIF(AA:AA,\">0\")"
-    wb.save("annualsales.xlsx")
+    wb.save("Annual Sales.xlsx")
     messagebox.showinfo("Success", "Sheets added and formulas applied successfully!")
 
 # Generate Bar Graph and Save as PNG
 def generate_graph():
     try:
-        df = pd.read_excel("annualsales.xlsx", sheet_name="Total Summary Analysis", usecols=["Assessment Roll", "Average Sales Price", "Median Sales Price"])
+        df = pd.read_excel("Annual Sales.xlsx", sheet_name="Total Summary Analysis", usecols=["Assessment Roll", "Average Sales Price", "Median Sales Price"])
     except Exception as e:
         messagebox.showerror("Graph Error", f"Unable to read data.\n\n{e}")
         return
     df = df.set_index("Assessment Roll")
     fig, ax = plt.subplots(figsize=(11, 6))
-    df.plot(kind="bar", ax=ax, width=0.3, color=["#FF9999", "#99CCFF"])
+    df.plot(kind="bar", ax=ax, width=0.3, color=["#e3782b", "#239130"])
     # Graph Formatting
     ax.set_title("Town of Stony Point Residential Average Sales Price vs. Median Sales Price\n(Single, Two - Four Family, and Condos Accounted For)", fontsize=10)
     ax.set_ylabel("Sales Price")
