@@ -128,7 +128,7 @@ def run_processing():
     deedprice_lookup = sales_excel.set_index("print_key")["sale_price"].to_dict()
     deedav_lookup = sales_excel.set_index("print_key")["total_av"].to_dict()
     setav_lookup = roll_excel.set_index("print_key")["total_av"].to_dict()
-    cond_lookup = sales_excel.set_index("print_key")["sale_cond"].to_dict()
+    cond_lookup = sales_excel.set_index("print_key")["sale_condition_code"].to_dict()
     # Data written into New Columns
     df["5217 Sales Price"] = df["Parcel Number"].apply(lambda x: deedprice_lookup.get(convert_number(x)))
     df["5217 Assessed Value"] = df["Parcel Number"].apply(lambda x: deedav_lookup.get(convert_number(x)))
@@ -245,7 +245,7 @@ def add_new_sheets():
     for cell in ["A1", "A3", "A5"]:
         ws1[cell].border = border
         ws1[cell].font = colorbold
-    ws1["C2"] = "Number of Sales"
+    ws1["C2"] = "# of Completed Sales"
     ws1["D2"] = "Minimum Sales Price"
     ws1["E2"] = "Maximum Sales Price"
     ws1["F2"] = "Average Sale Price"
@@ -255,14 +255,16 @@ def add_new_sheets():
     ws1["E4"] = "Weighted Mean Ratio"
     ws1["F4"] = "C.O.D"
     ws1["G4"] = "Price Related Differential"
+    ws1["C7"] = "Total # of Sales"
+    ws1["D7"] = "Excluded # of Sales"
     # Apply Formatting and Formulas
-    for col in ["C2", "D2", "E2", "F2", "G2", "C4", "D4", "E4", "F4", "G4"]:
+    for col in ["C2", "D2", "E2", "F2", "G2", "C4", "D4", "E4", "F4", "G4", "C7", "D7"]:
         ws1[col].font = bold
         ws1[col].alignment = Alignment(horizontal="center")
         ws1[col].border = border
-    for col in ["C3", "D3", "E3", "F3", "G3", "C5", "D5", "E5", "F5", "G5"]:
+    for col in ["C3", "D3", "E3", "F3", "G3", "C5", "D5", "E5", "F5", "G5", "C8", "D8"]:
         ws1[col].border = border
-    ws1["C3"] = f"=COUNTA('{sheet2_name}'!B:B)-1"
+    ws1["C3"] = f"=COUNT('{sheet2_name}'!Z:Z)"
     ws1["D3"] = f"=MIN('{sheet2_name}'!K:K)"
     ws1["E3"] = f"=MAX('{sheet2_name}'!K:K)"
     ws1["F3"] = f"=AVERAGE('{sheet2_name}'!K:K)"
@@ -272,6 +274,8 @@ def add_new_sheets():
     ws1["E5"] = f"=SUM('{sheet2_name}'!M:M)/SUM('{sheet2_name}'!K:K)"
     ws1["F5"] = f"=((('{sheet2_name}'!AC2)/C3)/D5)*100"
     ws1["G5"] = "=C5/E5"
+    ws1["C8"] = f"=COUNTA('{sheet2_name}'!B:B)-1"
+    ws1["D8"] = f"=C8-C3"
     # Currency Formatting for Sheet 1
     ws1["D3"].number_format = numbers.FORMAT_CURRENCY_USD_SIMPLE
     ws1["E3"].number_format = numbers.FORMAT_CURRENCY_USD_SIMPLE
